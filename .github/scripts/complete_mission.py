@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Marque une mission comme terminée et déclenche la génération de la suivante."""
 
-import json
 import os
 import re
 import subprocess
@@ -9,7 +8,6 @@ import sys
 from pathlib import Path
 
 import requests
-import yaml
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
@@ -64,7 +62,10 @@ def git_commit_and_push(files, message):
     for f in files:
         subprocess.run(["git", "add", f], check=True)
     subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
-    subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+    subprocess.run(
+        ["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"],
+        check=True,
+    )
     subprocess.run(["git", "commit", "-m", message], check=True)
     subprocess.run(["git", "push"], check=True)
 
@@ -93,7 +94,7 @@ def main():
         ["data/state/career.yml", "data/progress.yml"],
         f"chore: complete mission {mission_id}",
     )
-    print(f"State mis à jour et poussé.")
+    print("State mis à jour et poussé.")
 
     run_generate_mission()
     print("Génération de la prochaine mission déclenchée.")

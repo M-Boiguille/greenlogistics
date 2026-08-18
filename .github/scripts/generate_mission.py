@@ -81,13 +81,26 @@ def create_issue(mission):
 
     body = f"""## Mission automatique générée par IA
 
-**Mission :** {mission.mission_id}
-**Niveau :** {mission.level}
-**Temps estimé :** {mission.estimated_time_minutes} minutes
+|**Mission :** {mission.mission_id}
+|**Niveau :** {mission.level}
+|**Temps estimé :** {mission.estimated_time_minutes} minutes
+|**Deadline :** {mission.deadline}
+
+### Brief client
+
+{mission.client_brief}
 
 ### Contexte
 
 {mission.description}
+
+### Impact métier
+
+{mission.business_impact}
+
+### Contraintes
+
+{mission.constraints}
 
 ### Nouvelles notions
 
@@ -98,6 +111,10 @@ def create_issue(mission):
     body += "\n### Prérequis\n\n"
     for prereq in mission.prerequisites:
         body += f"- {prereq}\n"
+
+    body += "\n### Liens d'apprentissage\n\n"
+    for link in mission.learning_links:
+        body += f"- {link}\n"
 
     body += "\n### Critères d'acceptation\n\n"
     for criterion in mission.acceptance_criteria:

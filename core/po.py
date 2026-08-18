@@ -14,9 +14,14 @@ class Mission:
     mission_id: str
     title: str
     level: str
+    client_brief: str
     description: str
+    business_impact: str
+    constraints: str
+    deadline: str
     new_concepts: list[str]
     prerequisites: list[str]
+    learning_links: list[str]
     acceptance_criteria: list[str]
     estimated_time_minutes: int
     deliverables: list[str]
@@ -26,9 +31,14 @@ class Mission:
             "mission_id": self.mission_id,
             "title": self.title,
             "level": self.level,
+            "client_brief": self.client_brief,
             "description": self.description,
+            "business_impact": self.business_impact,
+            "constraints": self.constraints,
+            "deadline": self.deadline,
             "new_concepts": self.new_concepts,
             "prerequisites": self.prerequisites,
+            "learning_links": self.learning_links,
             "acceptance_criteria": self.acceptance_criteria,
             "estimated_time_minutes": self.estimated_time_minutes,
             "deliverables": self.deliverables,
@@ -40,9 +50,14 @@ class Mission:
             mission_id=data["mission_id"],
             title=data["title"],
             level=data["level"],
+            client_brief=data.get("client_brief", ""),
             description=data["description"],
+            business_impact=data.get("business_impact", ""),
+            constraints=data.get("constraints", ""),
+            deadline=data.get("deadline", ""),
             new_concepts=data.get("new_concepts", []),
             prerequisites=data.get("prerequisites", []),
+            learning_links=data.get("learning_links", []),
             acceptance_criteria=data.get("acceptance_criteria", []),
             estimated_time_minutes=data.get("estimated_time_minutes", 120),
             deliverables=data.get("deliverables", []),

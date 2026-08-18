@@ -17,16 +17,23 @@ RÈGLES DE GÉNÉRATION
 5. Le contexte reste GreenLogistics.
 6. Parfois, proposer un exercice de rappel Docker/Linux.
 7. Formuler comme une issue GitHub professionnelle.
-8. Tous les champs texte (title, description, acceptance_criteria, deliverables) doivent être rédigés en français.
+8. Inclure un contexte métier : brief client, impact métier, contrainte, deadline.
+9. Proposer 2 à 3 liens KodeKloud / doc officielle pertinents pour préparer les nouvelles notions.
+10. Tous les champs texte doivent être rédigés en français.
 
 FORMAT DE SORTIE (JSON pur, sans markdown, sans explication) :
 {
   "mission_id": "greenlogistics-N",
   "title": "string",
   "level": "stagiaire|junior|confirme|senior|lead",
+  "client_brief": "string",
   "description": "string",
+  "business_impact": "string",
+  "constraints": "string",
+  "deadline": "string",
   "new_concepts": ["concept1", "concept2"],
   "prerequisites": ["concept1", "concept2"],
+  "learning_links": ["https://...", "https://..."],
   "acceptance_criteria": ["critere1", "critere2", "critere3"],
   "estimated_time_minutes": integer,
   "deliverables": ["fichier1", "fichier2"]

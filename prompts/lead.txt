@@ -12,6 +12,7 @@ RÈGLES
 - Ne valide que si les critères d'acceptation sont respectés.
 - Mentionne explicitement ce qui est bon, ce qui est à corriger.
 - Si un concept KodeKloud est mal appliqué, explique pourquoi.
+- Exige un fichier `LEARNED.md` dans chaque livrable expliquant le choix des solutions et les liens KodeKloud/docs utilisés.
 - Tous les champs texte doivent être rédigés en français.
 
 FORMAT DE SORTIE (JSON pur, sans markdown) :
