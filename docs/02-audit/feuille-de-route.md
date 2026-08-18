@@ -8,39 +8,45 @@
 
 | Mois | Phase | Livrables clés |
 |------|-------|----------------|
-| M1 | Conception + plateforme OCI | DAT, specs, Terraform OCI, k3s |
-| M2 | Apps + CI/CD | Déploiement apps, WireGuard, workflows GitHub Actions |
-| M3 | Recette + status | Helm prod/recette, page de statut publique |
-| M4 | MEP + RUN | Bascule production, PV recette, exploitation |
+| M1 | Conception + plateforme | DAT, specs, début Terraform OCI / Ansible |
+| M2 | Plateforme opérationnelle | k3s, WireGuard, synthèse environnement |
+| M3 | CI/CD + recette | Dockerfiles, Helm, GitHub Actions, deploy recette |
+| M4 | MEP + RUN | Bascule prod, PV recette, exploitation |
 
 ## Jalons (critères Go)
 
 | Jalon | Critère de validation |
 |-------|----------------------|
-| Fin M1 | DAT validé, VM OCI provisionnée, cluster k3s opérationnel |
-| Fin M2 | 3 apps déployées, WireGuard actif, pipelines GHA verts |
-| Fin M3 | Recette validée, page de statut en ligne |
-| Fin M4 | Production basculée sur OCI, RUN documenté |
+| Fin M1 | DAT validé, VM OCI provisionnée *(par toi)* |
+| Fin M2 | k3s opérationnel, WireGuard actif, synthèse remplie |
+| Fin M3 | 3 apps en recette, pipelines CI configurés |
+| Fin M4 | Production basculée, RUN documenté |
 
-## Backlog initial (GitHub)
+## Backlog initial (actions DevOps)
 
-- Conteneuriser LogiSoft (Dockerfile PHP-Apache + PVC)
-- Workflow GHA portail React (lint, test, build image, push GHCR)
-- Workflow GHA API mobile Node.js
-- Charts Helm par application + workflow deploy Helm
-- Migration MySQL → PostgreSQL
-- Page de statut (Uptime Kuma ou UptimeRobot)
+- [ ] Terraform OCI — VM, réseau, disque
+- [ ] Ansible — k3s, WireGuard, durcissement
+- [ ] Charts Helm — PostgreSQL, apps
+- [ ] Dockerfiles stubs — LogiSoft, portail, API
+- [ ] Workflows GitHub Actions — build, deploy
+- [ ] Migration MySQL → PostgreSQL
+- [ ] Page de statut publique
 
 ## Risques
 
 | Risque | Mitigation |
 |--------|------------|
-| Régression ERP à la conteneurisation | Tests de non-régression, recette métier prolongée |
+| Régression ERP | Tests non-régression, recette prolongée |
 | Bascule DNS | Fenêtre dimanche, rollback DNS préparé |
-| Montée de charge portail | Tests de charge en recette, ajustement ressources OCI |
+| Montée de charge | Tests charge — [rapport perf](../04-plateforme/rapport-tests-performance.md) |
 
 ## Équipe projet
 
 | MB Data | GreenLogistics |
 |---------|----------------|
 | Architecte DevOps, SRE, Ingénieur DevOps | DSI, Responsable IT, Développeur |
+
+## Références
+
+- [Cahier des charges plateforme](../04-plateforme/cahier-charges-plateforme.md)
+- [Cahier des charges CI/CD](../05-cicd/cahier-charges-cicd.md)

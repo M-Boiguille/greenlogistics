@@ -2,3 +2,18 @@
 AI_STORY.md
 ANNONCES.md
 SUPPORT_LOCAL.md
+SPRINTS_LOCAL.md
+
+# Terraform / secrets
+*.tfvars
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Ansible
+*.retry
+
+# IDE
+.idea/
+.vscode/

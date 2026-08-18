@@ -13,15 +13,17 @@ Infrastructure souveraine opérée pour GreenLogistics en production.
 | Composant | Choix |
 |-----------|-------|
 | Hyperviseur | Proxmox VE (KVM/Qemu), VMs via Terraform libvirt |
-| OS | Debian durci (Ansible) |
+| OS | Debian durci (Ansible), nftables |
 | Orchestration | Kubernetes kubeadm 3 nœuds (1 control-plane + 2 workers) |
-| Réseau | Cilium (CNI), MetalLB (BGP), Ingress NGINX, nftables |
-| Stockage | Longhorn (volumes distribués) |
+| Réseau | Calico (CNI), MetalLB (mode L2), Ingress NGINX |
+| Stockage | Rook-Ceph ou NFS provisioner |
 | TLS | cert-manager + Let's Encrypt |
 | Identité | Keycloak (SSO portail + API) |
 | CI/CD souverain | Forgejo + runners dédiés |
 | Observabilité | Prometheus, Grafana, OpenTelemetry Collector |
+| Sauvegardes | pg_dump planifié + Velero |
 | Admin | WireGuard |
+| Veille R&D | Cilium / eBPF (évaluation) |
 
 ---
 
