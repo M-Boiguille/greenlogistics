@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tracking-ingress
+  namespace: greenlogistics
+  annotations:
+    cert-manager.io/cluster-issuer: "greenlogistics-ca"
+spec:
+  tls:
+    - hosts:
+        - tracking.greenlogistics.local
+      secretName: tracking-tls
+  rules:
+    - host: tracking.greenlogistics.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tracking-service
+                port:
+                  number: 80

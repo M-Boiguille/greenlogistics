@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tracking-html
+  namespace: greenlogistics
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <head><title>GreenLogistics Tracking</title></head>
+      <body><h1>Tracking API opérationnel</h1></body>
+    </html>

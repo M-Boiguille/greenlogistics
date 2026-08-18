@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tracking-crt
+  namespace: greenlogistics
+spec:
+  secretName: tracking-tls
+  issuerRef:
+    name: greenlogistics-ca
+    kind: ClusterIssuer
+  dnsNames:
+    - tracking.greenlogistics.local
