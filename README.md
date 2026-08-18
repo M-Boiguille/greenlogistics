@@ -1,81 +1,112 @@
 # GreenLogistics — Simulateur de carrière DevOps autodidacte
 
-> **Ne montre pas ce que tu sais. Montre comment tu apprends.**
+> **Je n'apprends pas la théorie. Je travaille comme si j'étais déjà en entreprise.**
 
-GreenLogistics est un simulateur de missions DevOps qui me fait progresser de **Stagiaire à Lead** en reproduisant le workflow d'une vraie entreprise. Les missions sont générées **just-in-time** par une IA selon mon niveau réel, mes cours KodeKloud et mes certifications.
+**Rôle visé :** Ingénieur DevOps / SRE junior en reconversion autodidacte.  
+**Objectif :** Prouver que je peux tenir un poste DevOps réel — workflow, stack, autonomie, apprentissage continu.
 
----
-
-## Le principe
-
-1. Je suis un ingénieur DevOps junior fictif chez **MB Data**.
-2. Un workflow **GitHub Actions** génère une mission (issue) via l'API **Deepseek**.
-3. Je code la solution dans ce repo.
-4. Un **Lead IA** fait la review.
-5. Si c'est validé, une nouvelle mission est générée.
-6. Tout est versionné, auditable et public.
+Ce repo est mon **environnement de travail simulé**. Un moteur IA me génère des missions techniques just-in-time, un Lead IA fait la review de mes PRs, et moi je livre. Tout est public, traçable et versionné.
 
 ---
 
-## Ma base de connaissances
+## Pourquoi ce repo est différent
 
-| Source | Niveau |
-|--------|--------|
-| Linux Foundation Certified System Administrator (LFCS) | Validé |
-| Docker | Bon niveau |
-| KodeKloud — CKA | En cours (Scheduling, Application Lifecycle Management) |
-| KodeKloud — DevOps/Autres | Suivi exhaustif en cours |
+La plupart des juniors montrent des certificats et des tutos. Moi, je montre **un workflow de production** :
 
-Le simulateur se base sur `data/progress.yml` pour connaître mes compétences exactes.
+- Des **missions non prévues** générées par IA selon mon vrai niveau.
+- Des **PRs** avec review automatique par un Lead IA.
+- Un **processus de merge** déclenchant la mission suivante.
+- Un **dashboard public** de progression.
+- Une **preuve d'apprentissage** : chaque génération, chaque review, chaque correction est versionnée.
+
+> Ce n'est pas un portfolio. C'est une preuve de méthode.
 
 ---
 
-## Structure
+## Ce que ce repo prouve
+
+| Compétence démontrée | Preuve dans le repo |
+|----------------------|---------------------|
+| **Workflow d'entreprise** | Issues, PRs, reviews, merge, CI/CD |
+| **Automatisation** | `.github/workflows/` génère, review, complète les missions |
+| **Cadrage d'IA** | Prompts versionnés dans `prompts/`, JSON structuré |
+| **Kubernetes & cloud** | Livrables `k8s/` pour chaque mission |
+| **Sécurité & secrets** | GitHub Secrets, pas de clé dans le repo |
+| **Gestion de version** | Conventional commits, tests, ruff, mypy |
+| **Apprentissage adaptatif** | `data/progress.yml` basé sur KodeKloud, LFCS, Docker |
+
+---
+
+## Workflow du simulateur
 
 ```text
-greenlogistics/
-├── .github/
-│   ├── scripts/
-│   │   └── generate_mission.py   # Génère la prochaine mission
-│   └── workflows/
-│       └── generate-mission.yml  # Déclenche la génération
-├── data/
-│   └── progress.yml              # Mon vrai niveau (cours, compétences)
-├── prompts/
-│   ├── po.txt                    # Génère les missions
-│   ├── lead.txt                  # Review du code
-│   ├── mentor.txt                # Bilan pédagogique
-│   └── evaluator.txt             # Évalue la session
-├── missions/
-│   └── greenlogistics/
-│       ├── manifest.yml          # Métadonnées de la mission
-│       └── docs/                 # Scénario de la mission
-├── web/                          # Dashboard public (hors MVP)
-└── README.md                     # Ce fichier
+1. L'IA (PO) génère une mission inattendue dans une issue
+2. Je crée une branche `mission/greenlogistics-XXX`
+3. Je code la solution (Docker, K8s, Terraform, CI/CD...)
+4. Le Lead IA review ma PR
+5. Si validé, je merge
+6. Le workflow marque la mission comme terminée
+7. L'IA génère la mission suivante
 ```
 
----
-
-## Ce que montre ce repo aux recruteurs
-
-- Je maîtrise le **workflow d'entreprise** : tickets, reviews, merge.
-- Je sais **automatiser un processus** avec GitHub Actions.
-- Je sais **cadrer une IA** avec des prompts, des schémas JSON.
-- J'apprends en continu avec des **missions adaptées**.
-- Mon évolution est **traçable publiquement**.
+Chaque étape est **publique et auditable**.
 
 ---
 
-## Pour commencer
+## Mission en cours
 
-1. Lire `project_goal.md` pour la vision détaillée.
-2. Consulter `data/progress.yml` pour mon niveau.
-3. Lire `missions/greenlogistics/manifest.yml` pour le contexte.
-4. Voir les dernières **issues générées** pour les missions en cours.
+→ Voir l'[issue #1](https://github.com/M-Boiguille/greenlogistics/issues/1) : mission générée automatiquement par l'IA.
+
+La mission actuelle est sur **Kubernetes** : exposer une application en HTTPS avec `cert-manager` et un `Ingress`.
 
 ---
 
-## Missions
+## Stack & certifications
 
-- `missions/greenlogistics` : cloud privé souverain, lab OCI, CI/CD, MEP, RUN.
-- D'autres missions suivront : Vaultwarden, Memos, Vikunja, Moemi.
+| Domaine | Outil / Certif |
+|---------|----------------|
+| Linux | LFCS obtenu |
+| Conteneurs | Docker avancé |
+| Orchestration | Kubernetes — CKA en cours sur KodeKloud |
+| Cloud | OCI Always Free |
+| CI/CD | GitHub Actions |
+| IaC | Terraform |
+| GitOps | Helm |
+| Langage | Python 3.11 |
+| Tests | pytest, ruff, mypy |
+
+---
+
+## Dashboard de progression
+
+📊 [Voir mon dashboard public](https://M-Boiguille.github.io/greenlogistics/)
+
+Le dashboard affiche :
+- Mon niveau actuel
+- Le nombre de missions complétées
+- Le radar de compétences
+- Les cours KodeKloud en cours
+
+---
+
+## Ce que je cherche
+
+**Poste visé :** Ingénieur DevOps / SRE junior, idéalement en cloud privé souverain ou infra moderne.
+
+**Ce que j'apporte :**
+- Une méthode d'apprentissage par la pratique et l'itération.
+- Une autonomie réelle sur Linux, Docker, Kubernetes, CI/CD.
+- Une capacité à cadrer et utiliser l'IA pour accélérer sans dépendre.
+- Une appétence forte pour la souveraineté, la fiabilité et la sécurité des systèmes.
+
+**Localisation :** France, full remote ou région lyonnaise.
+
+---
+
+## Me contacter
+
+- 💼 [LinkedIn](https://linkedin.com/in/ton-profil)
+- 📧 [email@example.com](mailto:email@example.com)
+- 🌐 [Mon site personnel](https://ton-site.com)
+
+> **Mon CV ne dit pas que je sais faire. Ce repo le prouve.**

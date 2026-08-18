@@ -7,6 +7,8 @@ async function loadMetrics() {
         document.getElementById('missions').textContent = data.missions_completed;
         document.getElementById('xp').textContent = data.xp;
         document.getElementById('known').textContent = data.known_concepts_count;
+        document.getElementById('upcoming').textContent = data.upcoming_concepts_count;
+        document.getElementById('courses').textContent = data.active_courses.join(', ');
 
         const labels = Object.keys(data.skills);
         const values = Object.values(data.skills);
@@ -26,6 +28,8 @@ async function loadMetrics() {
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     r: {
                         min: 0,
@@ -47,9 +51,7 @@ async function loadMetrics() {
                 },
                 plugins: {
                     legend: {
-                        labels: {
-                            color: '#c9d1d9'
-                        }
+                        display: false
                     }
                 }
             }

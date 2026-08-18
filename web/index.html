@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenLogistics DevOps RPG</title>
+    <title>GreenLogistics — Simulateur DevOps | M-B Data</title>
+    <meta name="description" content="Ingénieur DevOps junior autodidacte. Je m'entraîne sur des missions générées par IA, avec review automatique par un Lead IA.">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <h1>GreenLogistics DevOps RPG</h1>
-        <p>Simulateur de carrière autodidacte</p>
+    <header class="hero">
+        <div class="container">
+            <h1>GreenLogistics</h1>
+            <p class="tagline">Simulateur de carrière DevOps autodidacte</p>
+            <p class="pitch">
+                Je n'apprends pas la théorie. Je travaille comme si j'étais déjà en entreprise :
+                missions inattendues, PRs, reviews, merge — le tout piloté par l'IA et versionné sur GitHub.
+            </p>
+            <div class="cta">
+                <a class="btn" href="https://github.com/M-Boiguille/greenlogistics" target="_blank" rel="noopener">Voir le repo</a>
+                <a class="btn secondary" href="mailto:email@example.com">Me contacter</a>
+            </div>
+        </div>
     </header>
-    <main>
-        <section id="summary">
-            <h2>Progression</h2>
+
+    <main class="container">
+        <section class="metrics" id="summary">
+            <h2>Progression en temps réel</h2>
             <div class="grid">
                 <div class="card">
                     <h3>Niveau</h3>
@@ -32,16 +44,74 @@
                     <h3>Concepts connus</h3>
                     <p id="known">-</p>
                 </div>
+                <div class="card">
+                    <h3>Concepts à venir</h3>
+                    <p id="upcoming">-</p>
+                </div>
+                <div class="card">
+                    <h3>Cours actifs</h3>
+                    <p id="courses">-</p>
+                </div>
             </div>
         </section>
-        <section id="radar">
-            <h2>Radar de compétences</h2>
-            <canvas id="skillsChart"></canvas>
+
+        <section class="split">
+            <div class="radar-box">
+                <h2>Radar de compétences</h2>
+                <canvas id="skillsChart"></canvas>
+            </div>
+            <div class="about">
+                <h2>En quoi ce projet est une preuve</h2>
+                <ul>
+                    <li><strong>Workflow d'entreprise :</strong> issues, PRs, review, merge.</li>
+                    <li><strong>Automatisation :</strong> GitHub Actions génèrent et vérifient chaque mission.</li>
+                    <li><strong>Cadrage d'IA :</strong> prompts versionnés, JSON structuré, cache budgetisé.</li>
+                    <li><strong>Apprentissage adaptatif :</strong> 70% de notions connues, 30% de nouveauté.</li>
+                    <li><strong>Souveraineté :</strong> lab K3s sur OCI Always Free, pas de lock-in cloud.</li>
+                </ul>
+                <p class="current-mission">
+                    <strong>Mission en cours :</strong>
+                    <a id="mission-link" href="https://github.com/M-Boiguille/greenlogistics/issues" target="_blank" rel="noopener">voir l'issue générée par l'IA</a>
+                </p>
+            </div>
+        </section>
+
+        <section class="stack">
+            <h2>Stack & certifications</h2>
+            <div class="badges">
+                <span class="badge">Linux LFCS</span>
+                <span class="badge">Docker</span>
+                <span class="badge">Kubernetes — CKA en cours</span>
+                <span class="badge">k3s</span>
+                <span class="badge">Helm</span>
+                <span class="badge">Terraform</span>
+                <span class="badge">GitHub Actions</span>
+                <span class="badge">Python</span>
+                <span class="badge">OCI</span>
+                <span class="badge">cert-manager</span>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Ce que je cherche</h2>
+            <p>
+                Poste d'<strong>ingénieur DevOps / SRE junior</strong>, idéalement en cloud privé souverain ou infrastructure moderne.
+                France, full remote ou région lyonnaise.
+            </p>
+            <div class="cta">
+                <a class="btn" href="mailto:email@example.com">Envoyer un email</a>
+                <a class="btn secondary" href="https://linkedin.com/in/ton-profil" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
         </section>
     </main>
+
     <footer>
-        <p>Repo : <a href="https://github.com/">GreenLogistics</a></p>
+        <p>
+            Généré automatiquement depuis <a href="https://github.com/M-Boiguille/greenlogistics" target="_blank" rel="noopener">greenlogistics</a>.
+            Chaque commit, issue et review est public.
+        </p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

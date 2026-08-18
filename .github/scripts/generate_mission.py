@@ -3,6 +3,7 @@
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -20,10 +21,49 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 
+def _max_mission_number():
+    """Récupère le plus grand numéro de mission déjà généré localement."""
+    if not MISSIONS_DIR.exists():
+        return 0
+    numbers = []
+    for file in MISSIONS_DIR.glob("greenlogistics-*.json"):
+        try:
+            num = int(file.stem.split("-")[1])
+            numbers.append(num)
+        except ValueError:
+            continue
+    return max(numbers, default=0)
+
+
+def _max_issue_number():
+    """Récupère le plus grand numéro de mission déjà utilisé dans les issues."""
+    if not REPO or not GITHUB_TOKEN:
+        return 0
+    url = f"https://api.github.com/repos/{REPO}/issues"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+    }
+    params = {"labels": "mission", "state": "all", "per_page": 100}
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code != 200:
+        return 0
+    numbers = []
+    pattern = re.compile(r"\[Mission greenlogistics-(\d{3})\]")
+    for issue in response.json():
+        title = issue.get("title", "")
+        match = pattern.search(title)
+        if match:
+            numbers.append(int(match.group(1)))
+    return max(numbers, default=0)
+
+
 def find_next_mission_id(progress, career):
     """Détermine le prochain identifiant de mission."""
     completed = career.get("missions_completed", []) + progress.completed_missions
-    next_num = len(completed) + 1
+    local_max = _max_mission_number()
+    issue_max = _max_issue_number()
+    next_num = max(len(completed), local_max, issue_max) + 1
     return f"greenlogistics-{next_num:03d}"
 
 
