@@ -1,6 +1,10 @@
-# Installation de cert-manager via manifests statiques
-# En production, on utiliserait Helm : helm install cert-manager jetstack/cert-manager
+# Installation de cert-manager
+# On crée d'abord le namespace dédié, puis on applique les manifests officiels.
+# En production, utiliser Helm : helm install cert-manager jetstack/cert-manager --namespace cert-manager
 apiVersion: v1
 kind: Namespace
 metadata:
   name: cert-manager
+---
+# Le manifeste officiel de cert-manager est à appliquer après ce fichier :
+# kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.0/cert-manager.yaml
