@@ -3,6 +3,7 @@
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -34,8 +35,8 @@ def _max_mission_number():
     return max(numbers, default=0)
 
 
-def _count_existing_issues():
-    """Compte les issues existantes portant le label mission."""
+def _max_issue_number():
+    """Récupère le plus grand numéro de mission déjà utilisé dans les issues."""
     if not REPO or not GITHUB_TOKEN:
         return 0
     url = f"https://api.github.com/repos/{REPO}/issues"
@@ -47,15 +48,22 @@ def _count_existing_issues():
     response = requests.get(url, headers=headers, params=params)
     if response.status_code != 200:
         return 0
-    return len(response.json())
+    numbers = []
+    pattern = re.compile(r"\[Mission greenlogistics-(\d{3})\]")
+    for issue in response.json():
+        title = issue.get("title", "")
+        match = pattern.search(title)
+        if match:
+            numbers.append(int(match.group(1)))
+    return max(numbers, default=0)
 
 
 def find_next_mission_id(progress, career):
     """Détermine le prochain identifiant de mission."""
     completed = career.get("missions_completed", []) + progress.completed_missions
     local_max = _max_mission_number()
-    issues_count = _count_existing_issues()
-    next_num = max(len(completed), local_max, issues_count) + 1
+    issue_max = _max_issue_number()
+    next_num = max(len(completed), local_max, issue_max) + 1
     return f"greenlogistics-{next_num:03d}"
 
 
