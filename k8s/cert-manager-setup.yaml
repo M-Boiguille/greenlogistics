@@ -1,0 +1,6 @@
+# Installation de cert-manager via manifests statiques
+# En production, on utiliserait Helm : helm install cert-manager jetstack/cert-manager
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager
