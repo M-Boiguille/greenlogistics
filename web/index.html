@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLogistics DevOps RPG</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>GreenLogistics DevOps RPG</h1>
+        <p>Simulateur de carrière autodidacte</p>
+    </header>
+    <main>
+        <section id="summary">
+            <h2>Progression</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Niveau</h3>
+                    <p id="level">-</p>
+                </div>
+                <div class="card">
+                    <h3>Missions validées</h3>
+                    <p id="missions">-</p>
+                </div>
+                <div class="card">
+                    <h3>XP</h3>
+                    <p id="xp">-</p>
+                </div>
+                <div class="card">
+                    <h3>Concepts connus</h3>
+                    <p id="known">-</p>
+                </div>
+            </div>
+        </section>
+        <section id="radar">
+            <h2>Radar de compétences</h2>
+            <canvas id="skillsChart"></canvas>
+        </section>
+    </main>
+    <footer>
+        <p>Repo : <a href="https://github.com/">GreenLogistics</a></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

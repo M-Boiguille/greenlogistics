@@ -1,0 +1,62 @@
+async function loadMetrics() {
+    try {
+        const response = await fetch('metrics.json');
+        const data = await response.json();
+
+        document.getElementById('level').textContent = data.level;
+        document.getElementById('missions').textContent = data.missions_completed;
+        document.getElementById('xp').textContent = data.xp;
+        document.getElementById('known').textContent = data.known_concepts_count;
+
+        const labels = Object.keys(data.skills);
+        const values = Object.values(data.skills);
+
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Compétences',
+                    data: values,
+                    backgroundColor: 'rgba(88, 166, 255, 0.2)',
+                    borderColor: 'rgba(88, 166, 255, 1)',
+                    pointBackgroundColor: 'rgba(88, 166, 255, 1)',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20,
+                            color: '#c9d1d9'
+                        },
+                        grid: {
+                            color: '#30363d'
+                        },
+                        angleLines: {
+                            color: '#30363d'
+                        },
+                        pointLabels: {
+                            color: '#c9d1d9'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#c9d1d9'
+                        }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Impossible de charger metrics.json', error);
+    }
+}
+
+loadMetrics();

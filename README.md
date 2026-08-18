@@ -1,79 +1,81 @@
-# Mission GreenLogistics
+# GreenLogistics — Simulateur de carrière DevOps autodidacte
 
-**Cloud Privé Souverain & Transformation DevOps**
+> **Ne montre pas ce que tu sais. Montre comment tu apprends.**
 
-Scénario fictif d'un ERP modernisé par une chaîne CI/CD, pour démontrer la transformation d'un SI legacy en plateforme cloud-native opérée.
+GreenLogistics est un simulateur de missions DevOps qui me fait progresser de **Stagiaire à Lead** en reproduisant le workflow d'une vraie entreprise. Les missions sont générées **just-in-time** par une IA selon mon niveau réel, mes cours KodeKloud et mes certifications.
 
-> **Ce dépôt documente la mission** (phases 1 à 7). L'implémentation infra/CI/CD est le travail de l'ingénieur DevOps — voir [Par où commencer](docs/00-demarrage/par-ou-commencer.md).
+---
 
-## Contexte
+## Le principe
 
-GreenLogistics, PME de 250 salariés, souhaitait moderniser son SI logistique sans dépendre d'un hyperscaler américain. MB Data a été retenue pour fournir une plateforme cloud privée opérée et une industrialisation CI/CD.
+1. Je suis un ingénieur DevOps junior fictif chez **MB Data**.
+2. Un workflow **GitHub Actions** génère une mission (issue) via l'API **Deepseek**.
+3. Je code la solution dans ce repo.
+4. Un **Lead IA** fait la review.
+5. Si c'est validé, une nouvelle mission est générée.
+6. Tout est versionné, auditable et public.
 
-Lab portfolio : **OCI Always Free** (région EU, 24/7) — architecture dans le [DAT](docs/03-conception-architecture/DAT.md) partie B.
+---
 
-## Documentation mission
+## Ma base de connaissances
 
-### Phase 1 : Avant-vente et contractualisation
-- [Proposition commerciale](docs/01-avant-vente/proposition-commerciale.md)
-- [Contrat de services](docs/01-avant-vente/contrat-services.md)
+| Source | Niveau |
+|--------|--------|
+| Linux Foundation Certified System Administrator (LFCS) | Validé |
+| Docker | Bon niveau |
+| KodeKloud — CKA | En cours (Scheduling, Application Lifecycle Management) |
+| KodeKloud — DevOps/Autres | Suivi exhaustif en cours |
 
-### Phase 2 : Audit approfondi
-- [Rapport d'audit](docs/02-audit/rapport-audit.md)
-- [Feuille de route](docs/02-audit/feuille-de-route.md)
+Le simulateur se base sur `data/progress.yml` pour connaître mes compétences exactes.
 
-### Phase 3 : Conception et architecture cible
-- [Dossier d'Architecture Technique (DAT)](docs/03-conception-architecture/DAT.md)
-- [Plan de migration](docs/03-conception-architecture/plan-migrantion.md)
-- [Spécifications des environnements](docs/03-conception-architecture/specs.md)
+---
 
-### Phase 4 : Plateforme d'hébergement
-- [Cahier des charges plateforme](docs/04-plateforme/cahier-charges-plateforme.md)
-- [Synthèse environnement](docs/04-plateforme/synthese-environnement.md) *(template)*
-- [Rapport tests performance](docs/04-plateforme/rapport-tests-performance.md) *(template)*
+## Structure
 
-### Phase 5 : CI/CD
-- [Cahier des charges CI/CD](docs/05-cicd/cahier-charges-cicd.md)
-- [Guide développeur](docs/05-cicd/guide-developpeur.md)
-- [Conventions](docs/05-cicd/conventions.md)
+```text
+greenlogistics/
+├── .github/
+│   ├── scripts/
+│   │   └── generate_mission.py   # Génère la prochaine mission
+│   └── workflows/
+│       └── generate-mission.yml  # Déclenche la génération
+├── data/
+│   └── progress.yml              # Mon vrai niveau (cours, compétences)
+├── prompts/
+│   ├── po.txt                    # Génère les missions
+│   ├── lead.txt                  # Review du code
+│   ├── mentor.txt                # Bilan pédagogique
+│   └── evaluator.txt             # Évalue la session
+├── missions/
+│   └── greenlogistics/
+│       ├── manifest.yml          # Métadonnées de la mission
+│       └── docs/                 # Scénario de la mission
+├── web/                          # Dashboard public (hors MVP)
+└── README.md                     # Ce fichier
+```
 
-### Phase 6 : Recette et mise en production
-- [PV de recette](docs/06-mep/pv-recette.md)
-- [Check-list bascule](docs/06-mep/checklist-bascule.md)
-- [Fiche fin de projet](docs/06-mep/fiche-fin-projet.md)
+---
 
-### Phase 7 : Exploitation (RUN)
-- [Cahier des charges RUN](docs/07-exploitation/cahier-charges-run.md)
-- [Page de statut](docs/07-exploitation/status.md)
-- [Runbook incidents](docs/07-exploitation/runbook-incidents.md)
-- [Template rapport mensuel](docs/07-exploitation/rapport-mensuel-template.md)
+## Ce que montre ce repo aux recruteurs
 
-## Mon rôle d'Ingénieur DevOps
+- Je maîtrise le **workflow d'entreprise** : tickets, reviews, merge.
+- Je sais **automatiser un processus** avec GitHub Actions.
+- Je sais **cadrer une IA** avec des prompts, des schémas JSON.
+- J'apprends en continu avec des **missions adaptées**.
+- Mon évolution est **traçable publiquement**.
 
-En tant qu'ingénieur exploitation chez MB Data, j'ai pris en charge les **phases 4 à 7** : plateforme, CI/CD, MEP et RUN. Les cahiers des charges décrivent ce que j'implémente sur le lab OCI.
+---
 
-## Stack technique (lab OCI — cible)
+## Pour commencer
 
-| Composant | Choix |
-|-----------|-------|
-| Cloud | OCI Always Free — VM Ampere, région EU |
-| Orchestration | k3s single-node |
-| Apps | LogiSoft (PHP), portail, API Node — stubs |
-| BDD | PostgreSQL |
-| CI/CD | GitHub Actions → GHCR → Helm |
-| Réseau | Traefik, cert-manager, WireGuard |
-| Supervision | `/health`, page de statut |
+1. Lire `project_goal.md` pour la vision détaillée.
+2. Consulter `data/progress.yml` pour mon niveau.
+3. Lire `missions/greenlogistics/manifest.yml` pour le contexte.
+4. Voir les dernières **issues générées** pour les missions en cours.
 
-*Architecture cible client (datacenter Lyon) : [DAT](docs/03-conception-architecture/DAT.md) partie A.*
+---
 
-## Démo live
+## Missions
 
-| Composant | Statut |
-|-----------|--------|
-| Documentation mission | Disponible (ce repo) |
-| Lab OCI déployé | À implémenter (phases 4–7) |
-| Coût cible | 0 €/mois (OCI Always Free) |
-
-## Par où commencer
-
-[Lire la documentation](docs/00-demarrage/par-ou-commencer.md) puis suivre les cahiers des charges phase 4 → 7.
+- `missions/greenlogistics` : cloud privé souverain, lab OCI, CI/CD, MEP, RUN.
+- D'autres missions suivront : Vaultwarden, Memos, Vikunja, Moemi.

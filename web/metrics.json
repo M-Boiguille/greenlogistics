@@ -1,0 +1,21 @@
+{
+  "player": "autodidact",
+  "level": "junior",
+  "xp": 0,
+  "missions_completed": 0,
+  "skills": {
+    "Linux": 80,
+    "Reseau": 70,
+    "Docker": 75,
+    "CI_CD": 50,
+    "Kubernetes": 55,
+    "Terraform": 30,
+    "Helm": 35,
+    "Observabilite_Securite": 25
+  },
+  "known_concepts_count": 29,
+  "upcoming_concepts_count": 11,
+  "active_courses": [
+    "CKA"
+  ]
+}

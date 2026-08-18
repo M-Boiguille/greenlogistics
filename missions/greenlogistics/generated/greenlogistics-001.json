@@ -1,0 +1,41 @@
+{
+  "mission_id": "greenlogistics-001",
+  "title": "Moderniser l'accès à l'application de tracking via un Ingress sécurisé par cert-manager",
+  "level": "junior",
+  "description": "Contexte : GreenLogistics souhaite exposer son application de tracking à ses équipes internes via un sous-domaine sécurisé. Le cluster k3s est opérationnel et Traefik est déjà installé comme Ingress controller. Votre mission est de déployer l'application (image nginx avec une page HTML personnalisée) dans un namespace dédié, de la rendre accessible via un Ingress et de configurer cert-manager pour automatiser le certificat TLS. Vous utiliserez vos compétences en Kubernetes pour créer les ressources (Deployment, Service, ConfigMap, Secret) et découvrirez les concepts d'ingress et de cert-manager. En fin de mission, l'application devra être accessible en HTTPS sur un domaine test (ex: tracking.greenlogistics.local) et le certificat devra être géré automatiquement.",
+  "new_concepts": [
+    "ingress",
+    "cert-manager"
+  ],
+  "prerequisites": [
+    "kubectl",
+    "Docker",
+    "Kubernetes (Deployments, Services, ConfigMaps, Secrets)",
+    "Helm (bonus)"
+  ],
+  "acceptance_criteria": [
+    "Le namespace greenlogistics existe avec un quota de ressources défini (ResourceQuota).",
+    "Un Deployment 'tracking-api' est créé avec 2 réplicas, utilisant l'image nginx:alpine, avec des limits et requests CPU/mémoire.",
+    "Une ConfigMap 'tracking-config' et un Secret 'tracking-secret' sont créés et injectés comme variables d'environnement dans le Deployment.",
+    "Un Service de type ClusterIP 'tracking-service' est créé et pointe correctement vers les Pods (labels/selectors).",
+    "Un objet Ingress 'tracking-ingress' est créé avec le host 'tracking.greenlogistics.local' et route vers le service tracking-service sur le port 80.",
+    "cert-manager est installé (via kubectl apply ou Helm) dans un namespace dédié (cert-manager).",
+    "Un ClusterIssuer nommé 'greenlogistics-ca' de type selfsigned est configuré, ainsi qu'un certificat 'tracking-crt' dans le namespace greenlogistics.",
+    "Le certificat TLS est référencé dans l'Ingress et 'kubectl get certificate -n greenlogistics' montre READY=True.",
+    "L'application répond en HTTPS (curl -k https://tracking.greenlogistics.local/ retourne le code HTML).",
+    "Un déploiement par rolling-update est vérifié en changeant l'image (kubectl set image) et en observant le rollout."
+  ],
+  "estimated_time_minutes": 240,
+  "deliverables": [
+    "k8s/namespace.yaml",
+    "k8s/deployment.yaml",
+    "k8s/configmap.yaml",
+    "k8s/secret.yaml",
+    "k8s/service.yaml",
+    "k8s/ingress.yaml",
+    "k8s/cert-manager-setup.yaml",
+    "k8s/cluster-issuer.yaml",
+    "k8s/certificate.yaml",
+    "README.md"
+  ]
+}

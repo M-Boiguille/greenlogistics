@@ -1,0 +1,44 @@
+mission:
+  id: greenlogistics
+  title: GreenLogistics — Cloud privé souverain
+  client: GreenLogistics
+  description: PME logistique de 250 salariés qui modernise son SI.
+  provider: MB Data
+  difficulty_progression:
+    - level: stagiaire
+      focus: "Docker, rappel Linux, documentation"
+    - level: junior
+      focus: "k3s, Terraform OCI, Helm, cert-manager"
+    - level: confirme
+      focus: "CI/CD GitHub Actions, GHCR, multi-env"
+    - level: senior
+      focus: "MEP, migration BDD, rollback"
+    - level: lead
+      focus: "Architecture, review, gestion incidents"
+
+context:
+  cloud:
+    lab: OCI Always Free
+    region: EU
+    shape: VM.Standard.A1.Flex
+    resources: "3 OCPU, ~18 Go RAM, 150 Go"
+  orchestration: k3s single-node
+  ingress: Traefik
+  tls: cert-manager + Let's Encrypt
+  bdd: PostgreSQL
+  ci_cd: GitHub Actions → GHCR → Helm
+  admin: WireGuard
+
+constraints:
+  budget: "0 €/mois"
+  sovereignty: true
+  public_exposure: "HTTPS uniquement"
+
+references:
+  - docs/01-avant-vente/proposition-commerciale.md
+  - docs/02-audit/rapport-audit.md
+  - docs/03-conception-architecture/DAT.md
+  - docs/04-plateforme/cahier-charges-plateforme.md
+  - docs/05-cicd/cahier-charges-cicd.md
+  - docs/06-mep/checklist-bascule.md
+  - docs/07-exploitation/cahier-charges-run.md

@@ -1,0 +1,90 @@
+# Suivi exhaustif de la progression pédagogique
+# Mis à jour après chaque cours terminé ou mission validée
+
+player:
+  name: autodidact
+  current_level: junior
+  current_mission: greenlogistics
+  certifications:
+    - name: LFCS
+      status: obtained
+      date: "2025-XX-XX"
+  active_courses:
+    - name: CKA
+      platform: KodeKloud
+      progress: 70%
+      modules_completed:
+        - Introduction
+        - Core Concepts
+        - Scheduling
+        - Logging & Monitoring
+      modules_in_progress:
+        - Application Lifecycle Management
+      modules_upcoming:
+        - Cluster Maintenance
+        - Security
+        - Storage
+        - Networking
+        - Troubleshooting
+        - Design and Install a Kubernetes Cluster
+
+skills:
+  Linux: 80
+  Reseau: 70
+  Docker: 75
+  CI_CD: 50
+  Kubernetes: 55
+  Terraform: 30
+  Helm: 35
+  Observabilite_Securite: 25
+
+known_concepts:
+  # Linux / Réseau
+  - systemd
+  - bash
+  - ssh
+  - dns
+  - nftables
+  - cron
+  # Docker
+  - images
+  - containers
+  - dockerfile
+  - docker-compose
+  - volumes
+  - networks
+  # Kubernetes (CKA en cours)
+  - pods
+  - deployments
+  - services
+  - namespaces
+  - replicasets
+  - labels-selectors
+  - taints-tolerations
+  - node-affinity
+  - resource-limits
+  - daemonsets
+  - static-pods
+  - configmaps
+  - secrets
+  - env-vars
+  - rolling-updates
+  # CI/CD
+  - github-actions
+  - git
+
+upcoming_concepts:
+  # Prochains chapitres KodeKloud (CKA)
+  - cert-manager
+  - ingress
+  - horizontal-pod-autoscaler
+  - vertical-pod-autoscaler
+  - multi-container-pods
+  - init-containers
+  - storage-classes
+  - persistent-volumes
+  - network-policies
+  - rbac
+  - service-accounts
+
+completed_missions: []

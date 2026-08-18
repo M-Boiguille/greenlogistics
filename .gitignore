@@ -17,3 +17,21 @@ SPRINTS_LOCAL.md
 # IDE
 .idea/
 .vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Runtime / secrets
+.env
+*.pem
+kubeconfig*
+
+# Données locales joueur (générées ou sensibles)
+data/logs/
+
+# Cache LLM (optionnel à versionner, commenter si besoin d'audit externe)
+# data/cache/llm/
+
