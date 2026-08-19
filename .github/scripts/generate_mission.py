@@ -4,6 +4,7 @@
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -144,6 +145,24 @@ def save_mission(mission):
         encoding="utf-8",
     )
     print(f"Mission sauvegardée : {mission_file}")
+    return mission_file
+
+
+def git_commit_and_push(file_path, message):
+    """Commit et pousse le fichier de mission sur main."""
+    subprocess.run(["git", "add", str(file_path)], check=True)
+    subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+    subprocess.run(
+        [
+            "git",
+            "config",
+            "user.email",
+            "github-actions[bot]@users.noreply.github.com",
+        ],
+        check=True,
+    )
+    subprocess.run(["git", "commit", "-m", message], check=True)
+    subprocess.run(["git", "push"], check=True)
 
 
 def main():
@@ -155,7 +174,11 @@ def main():
     mission_id = find_next_mission_id(progress, career)
     mission = generate_mission(llm, progress, mission_id)
 
-    save_mission(mission)
+    mission_file = save_mission(mission)
+    git_commit_and_push(
+        mission_file,
+        f"chore: generate mission {mission.mission_id}",
+    )
     issue = create_issue(mission)
     if issue:
         print(f"Issue créée : {issue['html_url']}")
