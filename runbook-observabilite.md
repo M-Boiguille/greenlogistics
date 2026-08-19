@@ -15,13 +15,14 @@ Ce runbook documente le déploiement, l'exploitation et la mise à jour du socle
 ## Identifiants Grafana
 
 - Login : `admin`
-- Mot de passe : dans le secret `grafana-admin` du namespace `monitoring`
+- Mot de passe par défaut (demo) : `DemoPass123!`
+- En production, régénérer le secret : `kubectl create secret generic grafana-admin -n monitoring --from-literal=password='VOTRE_MOT_DE_PASSE' --dry-run=client -o yaml | kubectl apply -f -`
 
 ## Déploiement
 
 ```bash
-kubectl create secret generic grafana-admin -n monitoring --from-literal=password='VOTRE_MOT_DE_PASSE'
-for f in manifests/*.yaml; do kubectl apply -f "$f"; done
+chmod +x deploy.sh
+./deploy.sh
 ```
 
 ## Mise à jour
