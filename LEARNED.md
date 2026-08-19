@@ -2,33 +2,36 @@
 
 ## Objectif
 
-Mise en place de la supervision et de l'alerting pour le SI GreenLogistics avec Prometheus, Grafana et Alertmanager.
+Déployer le socle d'observabilité Prometheus / Grafana / Alertmanager pour GreenLogistics.
 
 ## Concepts connus renforcés
 
-- Kubernetes Deployments, Services, ConfigMaps, Secrets
-- Ingress TLS avec cert-manager
-- Namespace isolation
+- Kubernetes Deployments, Services, ConfigMaps, Secrets, PVC
+- DaemonSet pour un exporter par nœud
+- RBAC (ServiceAccount, ClusterRole, ClusterRoleBinding)
 
 ## Nouvelles notions maîtrisées
 
 - Prometheus scrape config et alerting rules
-- Grafana anonymous disabled + auth secret
-- Alertmanager basic deployment
+- Grafana dashboard provisioning via ConfigMap
+- kube-state-metrics et son RBAC
+- Stockage persistant pour Prometheus
 
 ## Choix techniques
 
-- Prometheus en vanilla plutôt qu'Helm pour maîtriser chaque composant.
-- Grafana avec authentification obligatoire (pas d'accès anonyme).
-- Alertmanager déployé séparément pour respecter l'architecture Prometheus.
+- Prometheus avec stockage persistant (PVC) pour conserver l'historique.
+- node-exporter en DaemonSet pour couvrir chaque nœud.
+- kube-state-metrics avec RBAC minimal.
+- Dashboards Grafana provisionnés en as-code.
+- Secret admin Grafana créé manuellement, non versionné.
 
 ## Liens utilisés
 
-- https://prometheus.io/docs/prometheus/latest/querying/basics/
-- https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
-- https://grafana.com/docs/grafana/latest/getting-started/getting-started-prometheus/
+- https://prometheus.io/docs/introduction/overview/
+- https://grafana.com/docs/grafana/latest/dashboards/
+- https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 
 ## Erreurs et corrections
 
-- L'alerte `PodDown` initialement mal formée a été corrigée avec `kube_pod_status_phase`.
-- L'accès anonyme Grafana a été désactivé via `GF_AUTH_ANONYMOUS_ENABLED`.
+- Le secret Grafana contenait un mot de passe en clair ; corrigé par un manifeste vide + commande kubectl.
+- Prometheus manquait de stockage persistant ; corrigé par un PVC et un montage dans /prometheus.

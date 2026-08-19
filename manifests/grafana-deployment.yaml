@@ -26,6 +26,11 @@ spec:
                 secretKeyRef:
                   name: grafana-admin
                   key: password
+          volumeMounts:
+            - name: dashboards
+              mountPath: /var/lib/grafana/dashboards
+            - name: provider
+              mountPath: /etc/grafana/provisioning/dashboards
           resources:
             requests:
               memory: "128Mi"
@@ -33,3 +38,10 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "200m"
+      volumes:
+        - name: dashboards
+          configMap:
+            name: grafana-dashboards
+        - name: provider
+          configMap:
+            name: grafana-dashboard-provider

@@ -1,27 +1,26 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
-  name: alertmanager
+  name: node-exporter
   namespace: monitoring
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: alertmanager
+      app: node-exporter
   template:
     metadata:
       labels:
-        app: alertmanager
+        app: node-exporter
     spec:
       containers:
-        - name: alertmanager
-          image: prom/alertmanager:v0.26.0
+        - name: node-exporter
+          image: prom/node-exporter:v1.7.0
           ports:
-            - containerPort: 9093
+            - containerPort: 9100
           resources:
             requests:
               memory: "32Mi"
-              cpu: "20m"
+              cpu: "50m"
             limits:
               memory: "64Mi"
               cpu: "100m"

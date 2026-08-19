@@ -25,6 +25,8 @@ spec:
             - name: alerts
               mountPath: /etc/prometheus/alerts.yml
               subPath: alerts.yml
+            - name: data
+              mountPath: /prometheus
           resources:
             requests:
               memory: "256Mi"
@@ -32,6 +34,9 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "200m"
+          args:
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
       volumes:
         - name: config
           configMap:
@@ -39,3 +44,6 @@ spec:
         - name: alerts
           configMap:
             name: prometheus-alerts
+        - name: data
+          persistentVolumeClaim:
+            claimName: prometheus-data
