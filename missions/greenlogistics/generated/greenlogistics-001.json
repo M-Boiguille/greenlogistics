@@ -1,0 +1,44 @@
+{
+  "mission_id": "greenlogistics-001",
+  "title": "Mise en place d'une chaîne CI/CD pour l'application de suivi des livraisons",
+  "level": "confirme",
+  "client_brief": "GreenLogistics, PME en pleine croissance, souhaite fiabiliser et moderniser son système d'information. L'application de suivi des livraisons est actuellement déployée manuellement via kubectl, ce qui entraîne des erreurs et des retards. Le client demande une automatisation du déploiement pour réduire les risques et améliorer la rapidité de mise en production.",
+  "description": "Vous êtes chargé de créer une chaîne CI/CD complète pour l'application de suivi des livraisons. En utilisant GitHub Actions, vous devez configurer un workflow qui, à chaque push sur la branche principale, effectue les étapes suivantes : exécution de tests de non-régression, construction d'une image Docker, push de cette image sur un registre d'images (ex: Docker Hub privé ou registry OCI), puis mise à jour du déploiement Kubernetes dans le cluster k3s via kubectl. Vous devrez également garantir la résilience de l'application (probes, resource limits, replicas) et documenter l'ensemble dans un runbook.",
+  "business_impact": "Cette mission permettra de réduire de 80% le temps de déploiement, de minimiser les erreurs humaines et d'assurer une disponibilité continue de l'application de suivi des livraisons, ce qui est critique pour la satisfaction des clients et la réputation de l'entreprise.",
+  "constraints": "Le déploiement doit être effectué sur le cluster k3s single-node déjà provisionné (VM Ampere A1 sur OCI Always Free). Aucun secret ne doit être stocké en clair dans le dépôt Git. Le workflow doit être déclenché sur les pushes sur la branche principale et les pull requests (au minimum pour les tests). La documentation doit être rédigée en français.",
+  "deadline": "15 jours ouvrés à compter du début de la mission.",
+  "new_concepts": [
+    "continuous-integration",
+    "continuous-delivery"
+  ],
+  "prerequisites": [
+    "kubectl",
+    "deployments",
+    "services",
+    "ingress",
+    "namespaces",
+    "configmaps",
+    "secrets"
+  ],
+  "learning_links": [
+    "https://docs.github.com/fr/actions",
+    "https://kodekloud.com/courses/github-actions-basics",
+    "https://kodekloud.com/topic/continuous-integration-continuous-delivery/"
+  ],
+  "acceptance_criteria": [
+    "Le workflow GitHub Actions construit une image Docker à partir du code source et la publie dans un registre.",
+    "Le workflow inclut une étape de tests automatisés avant la construction de l'image.",
+    "Le workflow met à jour le Deployments Kubernetes via kubectl (ou kubectl apply) après le push de l'image.",
+    "L'application est accessible via l'Ingress avec un nom de domaine configuré (ex: app.greenlogistics.fr).",
+    "Le manifeste Kubernetes définit des resource limits, des liveness/readiness probes et au moins 3 réplicas pour la production.",
+    "Un runbook détaillant la procédure de déploiement et de rollback est fourni dans le dépôt."
+  ],
+  "estimated_time_minutes": 480,
+  "deliverables": [
+    "workflow.yml",
+    "deployment.yaml",
+    "service.yaml",
+    "ingress.yaml",
+    "runbook-deploiement.md"
+  ]
+}
