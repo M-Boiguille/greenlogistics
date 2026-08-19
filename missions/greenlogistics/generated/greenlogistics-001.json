@@ -1,44 +1,41 @@
 {
   "mission_id": "greenlogistics-001",
-  "title": "Mise en place d'une chaîne CI/CD pour l'application de suivi des livraisons",
+  "title": "Déploiement du socle d'observabilité Prometheus et Grafana sur le cluster k3s",
   "level": "confirme",
-  "client_brief": "GreenLogistics, PME en pleine croissance, souhaite fiabiliser et moderniser son système d'information. L'application de suivi des livraisons est actuellement déployée manuellement via kubectl, ce qui entraîne des erreurs et des retards. Le client demande une automatisation du déploiement pour réduire les risques et améliorer la rapidité de mise en production.",
-  "description": "Vous êtes chargé de créer une chaîne CI/CD complète pour l'application de suivi des livraisons. En utilisant GitHub Actions, vous devez configurer un workflow qui, à chaque push sur la branche principale, effectue les étapes suivantes : exécution de tests de non-régression, construction d'une image Docker, push de cette image sur un registre d'images (ex: Docker Hub privé ou registry OCI), puis mise à jour du déploiement Kubernetes dans le cluster k3s via kubectl. Vous devrez également garantir la résilience de l'application (probes, resource limits, replicas) et documenter l'ensemble dans un runbook.",
-  "business_impact": "Cette mission permettra de réduire de 80% le temps de déploiement, de minimiser les erreurs humaines et d'assurer une disponibilité continue de l'application de suivi des livraisons, ce qui est critique pour la satisfaction des clients et la réputation de l'entreprise.",
-  "constraints": "Le déploiement doit être effectué sur le cluster k3s single-node déjà provisionné (VM Ampere A1 sur OCI Always Free). Aucun secret ne doit être stocké en clair dans le dépôt Git. Le workflow doit être déclenché sur les pushes sur la branche principale et les pull requests (au minimum pour les tests). La documentation doit être rédigée en français.",
-  "deadline": "15 jours ouvrés à compter du début de la mission.",
+  "client_brief": "GreenLogistics, PME logistique en croissance, souhaite fiabiliser son SI. Le cluster k3s en cloud privé héberge des applications métier, mais sans supervision ni visibilité. La direction exige un socle d'observabilité pour prévenir les incidents, réduire les interruptions de service et appuyer les décisions d'investissement.",
+  "description": "Vous êtes chargé de déployer une stack Prometheus/Grafana sur le cluster k3s single-node. Vous installerez Prometheus pour collecter les métriques du cluster et des applications, configurerez les exporters (node-exporter, kube-state-metrics), puis déploierez Grafana pour visualiser ces métriques via des dashboards. Vous utiliserez les mécanismes natifs Kubernetes (Deployments, Services, ConfigMaps, PVC, Namespaces) pour assurer la pérennité des données de monitoring. Vous rédigerez un runbook opérationnel et validerez le bon fonctionnement par des tests de charge légers.",
+  "business_impact": "Sans supervision, les incidents passent inaperçus jusqu'à l'impact client. Ce socle permettra de réduire le MTTR, d'améliorer la disponibilité perçue et de fournir des données objectives pour les choix d'infrastructure.",
+  "constraints": "Cluster single-node avec ressources limitées (Always Free). Optimiser les ressources. Manifestes versionnés dans Git. Sécurité : exposition publique restreinte (Grafana via ingress avec authentification, Prometheus en ClusterIP uniquement).",
+  "deadline": "Le déploiement doit être opérationnel dans 10 jours ouvrés.",
   "new_concepts": [
-    "continuous-integration",
-    "continuous-delivery"
+    "prometheus-architecture",
+    "grafana-dashboards"
   ],
   "prerequisites": [
-    "kubectl",
     "deployments",
     "services",
-    "ingress",
-    "namespaces",
     "configmaps",
+    "persistent-volume-claims",
+    "namespaces",
+    "ingress",
+    "rbac",
     "secrets"
   ],
   "learning_links": [
-    "https://docs.github.com/fr/actions",
-    "https://kodekloud.com/courses/github-actions-basics",
-    "https://kodekloud.com/topic/continuous-integration-continuous-delivery/"
+    "https://prometheus.io/docs/introduction/overview/",
+    "https://grafana.com/docs/grafana/latest/dashboards/"
   ],
   "acceptance_criteria": [
-    "Le workflow GitHub Actions construit une image Docker à partir du code source et la publie dans un registre.",
-    "Le workflow inclut une étape de tests automatisés avant la construction de l'image.",
-    "Le workflow met à jour le Deployments Kubernetes via kubectl (ou kubectl apply) après le push de l'image.",
-    "L'application est accessible via l'Ingress avec un nom de domaine configuré (ex: app.greenlogistics.fr).",
-    "Le manifeste Kubernetes définit des resource limits, des liveness/readiness probes et au moins 3 réplicas pour la production.",
-    "Un runbook détaillant la procédure de déploiement et de rollback est fourni dans le dépôt."
+    "Prometheus est déployé dans le namespace 'monitoring' avec stockage persistant et collecte les métriques de node-exporter et kube-state-metrics.",
+    "Grafana est accessible via l'ingress avec authentification et intègre le dashboard 'Cluster Overview' (CPU, mémoire, disque, réseau).",
+    "Au moins une règle d'alerte (ex: CPU > 80%) est définie dans Prometheus et visible dans son interface.",
+    "Un runbook documente le déploiement, la mise à jour et le troubleshooting de la stack.",
+    "Les manifestes sont reproductibles via 'kubectl apply -f' et le test de validité passe : les métriques remontent, les dashboards s'affichent, et l'ingress renvoie une réponse HTTP 200."
   ],
   "estimated_time_minutes": 480,
   "deliverables": [
-    "workflow.yml",
-    "deployment.yaml",
-    "service.yaml",
-    "ingress.yaml",
-    "runbook-deploiement.md"
+    "manifestes kubernetes (dossier monitoring/)",
+    "runbook-observabilite.md",
+    "test-validite.md"
   ]
 }
