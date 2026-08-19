@@ -46,11 +46,19 @@ def load_courses() -> list[Course]:
     return [Course.from_dict(c) for c in data.get("courses", [])]
 
 
-def compute_concepts(courses: list[Course] | None = None) -> tuple[list[str], list[str]]:
-    """Renvoie (known_concepts, upcoming_concepts) calculés depuis les modules complétés."""
+def compute_concepts(
+    courses: list[Course] | None = None,
+    validated_concepts: set[str] | None = None,
+) -> tuple[list[str], list[str]]:
+    """Renvoie (known_concepts, upcoming_concepts) calculés depuis les modules complétés.
+
+    Les `validated_concepts` sont ajoutés aux concepts connus.
+    """
     if courses is None:
         courses = load_courses()
-    known: set[str] = set()
+    if validated_concepts is None:
+        validated_concepts = set()
+    known: set[str] = set(validated_concepts)
     upcoming: set[str] = set()
     for course in courses:
         for module in course.modules:
@@ -58,6 +66,7 @@ def compute_concepts(courses: list[Course] | None = None) -> tuple[list[str], li
                 known.update(module.concepts)
             else:
                 upcoming.update(module.concepts)
+    upcoming -= known
     return sorted(known), sorted(upcoming)
 
 

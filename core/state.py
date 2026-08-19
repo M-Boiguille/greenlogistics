@@ -25,10 +25,12 @@ class Player:
 @dataclass
 class Progress:
     player: Player
-    skills: dict[str, int]
-    known_concepts: list[str]
-    upcoming_concepts: list[str]
     completed_missions: list[str]
+    validated_concepts: list[str]
+    skills_overrides: dict[str, int]
+    skills: dict[str, int] = field(default_factory=dict)
+    known_concepts: list[str] = field(default_factory=list)
+    upcoming_concepts: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -39,10 +41,9 @@ class Progress:
                 "certifications": self.player.certifications,
                 "active_courses": self.player.active_courses,
             },
-            "skills": self.skills,
-            "known_concepts": self.known_concepts,
-            "upcoming_concepts": self.upcoming_concepts,
             "completed_missions": self.completed_missions,
+            "validated_concepts": self.validated_concepts,
+            "skills_overrides": self.skills_overrides,
         }
 
     @classmethod
@@ -57,10 +58,12 @@ class Progress:
         )
         return cls(
             player=player,
+            completed_missions=data.get("completed_missions", []),
+            validated_concepts=data.get("validated_concepts", []),
+            skills_overrides=data.get("skills_overrides", {}),
             skills=data.get("skills", {}),
             known_concepts=data.get("known_concepts", []),
             upcoming_concepts=data.get("upcoming_concepts", []),
-            completed_missions=data.get("completed_missions", []),
         )
 
 
@@ -69,8 +72,11 @@ def load_progress(path: Path = PROGRESS_FILE) -> Progress:
     with path.open("r", encoding="utf-8") as f:
         data = yaml.safe_load(f) or {}
 
-    known, upcoming = compute_concepts()
-    skills = compute_skills()
+    validated = set(data.get("validated_concepts", []))
+    known, upcoming = compute_concepts(validated_concepts=validated)
+    base_skills = compute_skills()
+    overrides = data.get("skills_overrides", {})
+    skills = {**base_skills, **overrides}
     active_courses = get_active_courses()
 
     data["skills"] = skills

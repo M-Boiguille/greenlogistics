@@ -11,3 +11,5 @@ player:
       date: "2025-XX-XX"
 
 completed_missions: []
+validated_concepts: []
+skills_overrides: {}
