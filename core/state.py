@@ -6,6 +6,8 @@ from typing import Any
 
 import yaml
 
+from .courses import compute_concepts, compute_skills, get_active_courses
+
 PROGRESS_FILE = Path("data/progress.yml")
 CAREER_FILE = Path("data/state/career.yml")
 REJECTED_FILE = Path("data/state/rejected.yml")
@@ -65,8 +67,19 @@ class Progress:
 def load_progress(path: Path = PROGRESS_FILE) -> Progress:
     """Charge le fichier de progression du joueur."""
     with path.open("r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-    return Progress.from_dict(data or {})
+        data = yaml.safe_load(f) or {}
+
+    known, upcoming = compute_concepts()
+    skills = compute_skills()
+    active_courses = get_active_courses()
+
+    data["skills"] = skills
+    data["known_concepts"] = known
+    data["upcoming_concepts"] = upcoming
+    data.setdefault("player", {})
+    data["player"]["active_courses"] = active_courses
+
+    return Progress.from_dict(data)
 
 
 def save_progress(progress: Progress, path: Path = PROGRESS_FILE) -> None:

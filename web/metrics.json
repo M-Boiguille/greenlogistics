@@ -4,17 +4,16 @@
   "xp": 0,
   "missions_completed": 0,
   "skills": {
-    "Linux": 80,
-    "Reseau": 70,
-    "Docker": 75,
-    "CI_CD": 50,
-    "Kubernetes": 55,
-    "Terraform": 30,
-    "Helm": 35,
-    "Observabilite_Securite": 25
+    "Linux / Réseau": 0,
+    "Docker": 0,
+    "Kubernetes": 27,
+    "CI/CD": 0,
+    "Terraform": 0,
+    "Observabilité": 0,
+    "Ansible": 0
   },
-  "known_concepts_count": 29,
-  "upcoming_concepts_count": 11,
+  "known_concepts_count": 21,
+  "upcoming_concepts_count": 153,
   "active_courses": [
     "CKA"
   ]
