@@ -30,6 +30,7 @@ def generate_metrics() -> dict[str, Any]:
     return {
         "player": progress.player.name,
         "level": progress.player.current_level,
+        "target_level": getattr(progress.player, "target_level", ""),
         "xp": career.get("xp", 0),
         "missions_completed": len(career.get("missions_completed", [])),
         "skills": skills,

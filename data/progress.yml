@@ -3,8 +3,9 @@
 
 player:
   name: autodidact
-  current_level: junior
+  current_level: confirme
   current_mission: greenlogistics
+  target_level: SRE
   certifications:
     - name: LFCS
       status: obtained

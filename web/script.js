@@ -4,6 +4,7 @@ async function loadMetrics() {
         const data = await response.json();
 
         document.getElementById('level').textContent = data.level;
+        document.getElementById('target').textContent = data.target_level;
         document.getElementById('missions').textContent = data.missions_completed;
         document.getElementById('xp').textContent = data.xp;
         document.getElementById('known').textContent = data.known_concepts_count;
