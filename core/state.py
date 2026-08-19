@@ -18,6 +18,7 @@ class Player:
     name: str
     current_level: str
     current_mission: str | None
+    target_level: str = ""
     certifications: list[dict[str, Any]] = field(default_factory=list)
     active_courses: list[dict[str, Any]] = field(default_factory=list)
 
@@ -38,6 +39,7 @@ class Progress:
                 "name": self.player.name,
                 "current_level": self.player.current_level,
                 "current_mission": self.player.current_mission,
+                "target_level": self.player.target_level,
                 "certifications": self.player.certifications,
                 "active_courses": self.player.active_courses,
             },
@@ -51,8 +53,9 @@ class Progress:
         player_data = data.get("player", {})
         player = Player(
             name=player_data.get("name", "autodidact"),
-            current_level=player_data.get("current_level", "junior"),
+            current_level=player_data.get("current_level", "confirme"),
             current_mission=player_data.get("current_mission"),
+            target_level=player_data.get("target_level", ""),
             certifications=player_data.get("certifications", []),
             active_courses=player_data.get("active_courses", []),
         )
