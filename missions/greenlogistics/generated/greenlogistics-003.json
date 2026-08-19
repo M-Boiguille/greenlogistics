@@ -1,0 +1,47 @@
+{
+  "mission_id": "greenlogistics-003",
+  "title": "Industrialiser le déploiement des applications sur k3s avec GitHub Actions et Helm",
+  "level": "confirme",
+  "client_brief": "GreenLogistics, PME de logistique en croissance, souhaite moderniser son SI hébergé sur un cluster k3s en cloud privé souverain. La mise en production est encore manuelle et source d'erreurs. La direction impose d'automatiser les déploiements pour accélérer la livraison des fonctionnalités et garantir la fiabilité du système.",
+  "description": "Vous devez concevoir et implémenter une chaîne d'intégration et de déploiement continus (CI/CD) complète pour les applications de GreenLogistics. Le pipeline sera basé sur GitHub Actions : il devra construire les images Docker des applications, les pousser dans un registre d'images, puis déployer automatiquement les nouvelles versions sur le cluster k3s via Helm. Vous utiliserez des workflows réutilisables et des environnements pour distinguer staging et production. Vous devrez également intégrer des garde-fous : health checks, rollback automatique si nécessaire, et une documentation opérationnelle.",
+  "business_impact": "En automatisant le déploiement, GreenLogistics réduit le temps de mise en production de plusieurs jours à quelques minutes, minimise les risques d'erreurs humaines et permet un rollback rapide en cas de régression. Ces améliorations sont cruciales pour maintenir la disponibilité du service de suivi des livraisons, qui est soumis à des exigences de disponibilité strictes (SLA).",
+  "constraints": "L'infrastructure est un VM Ampere A1 sur Oracle Cloud Always Free (4 OCPU, 24 Go RAM) avec k3s single-node. Les applications sont déjà conteneurisées et des chartes Helm existent. Le registre d'images doit être GitHub Container Registry (ghcr.io). Les secrets (comme les tokens d'accès) doivent être gérés via les secrets GitHub. Le pipeline doit être déclenché automatiquement sur les branches principales (staging et main).",
+  "deadline": "12 jours ouvrés.",
+  "new_concepts": [
+    "reusable-workflows",
+    "environments"
+  ],
+  "prerequisites": [
+    "docker",
+    "kubernetes-overview",
+    "deployments",
+    "services",
+    "configmaps",
+    "secrets",
+    "ingress",
+    "kubectl"
+  ],
+  "learning_links": [
+    "https://docs.github.com/en/actions/learn-github-actions/reusing-workflows",
+    "https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment",
+    "https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions"
+  ],
+  "acceptance_criteria": [
+    "Un workflow principal est créé dans le dépôt GitHub (par ex. `.github/workflows/deploy.yml`).",
+    "Les images Docker sont construites et poussées vers GitHub Container Registry, avec des tags uniques (commit SHA).",
+    "Un workflow réutilisable est utilisé pour l'étape de build et/ou de déploiement, afin de factoriser le code.",
+    "Deux environnements GitHub (staging et production) sont configurés, avec des règles de protection (approbation manuelle requise pour la production).",
+    "Le déploiement sur k3s se fait via Helm, les valeurs étant mises à jour automatiquement avec le nouveau tag d'image.",
+    "Un health check (par ex. readiness probe) est vérifié après déploiement ; en cas d'échec, le pipeline déclenche automatiquement un retour arrière (rollback) de la charte Helm.",
+    "La documentation du pipeline est fournie dans un fichier `README.md` ou un runbook dédié, décrivant le processus, les commandes manuelles et la procédure de rollback.",
+    "Le pipeline respecte les bonnes pratiques de sécurité : analyse des secrets, scan des images (trivy) au minimum, et permissions moindres sur les codes d'accès."
+  ],
+  "estimated_time_minutes": 1440,
+  "deliverables": [
+    ".github/workflows/deploy.yml",
+    "shared-workflows/build.yml",
+    "shared-workflows/deploy.yml",
+    "runbook-deploiement.md",
+    "valeurs_deploy.yaml"
+  ]
+}
