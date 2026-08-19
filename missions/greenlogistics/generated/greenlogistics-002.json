@@ -1,0 +1,41 @@
+{
+  "mission_id": "greenlogistics-002",
+  "title": "Déploiement de la supervision et de l'observabilité du cluster k3s",
+  "level": "confirme",
+  "client_brief": "GreenLogistics, PME en croissance, souhaite fiabiliser son système d'information en cloud privé souverain. Le cluster k3s existant doit être supervisé pour garantir la disponibilité des applications logistiques critiques.",
+  "description": "Vous interviendrez sur l'infrastructure GreenLogistics afin de mettre en place une solution d'observabilité complète. À partir du cluster k3s existant (single-node), vous déploierez Prometheus pour la collecte des métriques, Alertmanager pour la gestion des alertes, et Grafana pour la visualisation. Vous configurerez des règles d'alerting (CPU, mémoire, espace disque, disponibilité des pods) et créerez des tableaux de bord pertinents. Vous devrez vous appuyer sur vos connaissances Kubernetes (deployments, services, configmaps, PVC) pour déployer les composants. Vous découvrirez l'architecture Prometheus et la définition de règles d'alerting.",
+  "business_impact": "En cas de panne, les opérations logistiques sont interrompues, impactant les livraisons et la satisfaction client. Une supervision efficace permettra de détecter les incidents plus rapidement, de réduire le MTTR et de respecter le SLA interne de 99,5%.",
+  "constraints": "L'infrastructure est sur un nœud unique k3s (Oracle Ampere A1). Les ressources sont limitées (4 OCPU, 24 Go RAM). La solution doit être légère et sécurisée. Tous les déploiements doivent être versionnés dans Git. Aucune interruption de service ne doit être causée par le déploiement.",
+  "deadline": "Deux semaines à partir du début de la mission.",
+  "new_concepts": [
+    "prometheus-architecture",
+    "alert-rules"
+  ],
+  "prerequisites": [
+    "deployments",
+    "services",
+    "configmaps",
+    "persistent-volume-claims",
+    "ingress",
+    "namespaces"
+  ],
+  "learning_links": [
+    "https://prometheus.io/docs/introduction/overview/",
+    "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/",
+    "https://grafana.com/docs/grafana/latest/dashboards/"
+  ],
+  "acceptance_criteria": [
+    "Prometheus est déployé dans le cluster et collecte les métriques des nœuds et des applications.",
+    "Des règles d'alerting sont définies pour les seuils critiques (CPU, mémoire, disque, pod down).",
+    "Alertmanager envoie des notifications vers une adresse e-mail ou webhook de test.",
+    "Grafana est accessible via le domaine de GreenLogistics (avec ingress et certificat TLS).",
+    "Des tableaux de bord Grafana montrent les métriques clés (utilisation ressources, disponibilité des services).",
+    "Un runbook d'intervention pour les alertes courantes est fourni."
+  ],
+  "estimated_time_minutes": 480,
+  "deliverables": [
+    "manifests-observabilite/ (YAML pour Prometheus, Alertmanager, Grafana)",
+    "runbook-incidents.md",
+    "documentation-ops.md"
+  ]
+}
