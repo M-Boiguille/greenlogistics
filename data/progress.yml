@@ -1,16 +1,33 @@
-# Suivi du joueur
-# Les compétences, concepts connus et concepts à venir sont calculés depuis data/courses.yml
-
 player:
   name: autodidact
   current_level: confirme
   current_mission: greenlogistics
   target_level: SRE
   certifications:
-    - name: LFCS
-      status: obtained
-      date: "2025-XX-XX"
-
-completed_missions: []
-validated_concepts: []
-skills_overrides: {}
+  - name: LFCS
+    status: obtained
+    date: 2025-XX-XX
+  active_courses:
+  - name: CKA
+    url: https://kodekloud.com/courses/certified-kubernetes-administrator/
+    completed_modules: 13
+    total_modules: 14
+completed_missions:
+- greenlogistics-002
+validated_concepts:
+- configmaps
+- daemonsets
+- deployments
+- ingress
+- namespaces
+- persistent-volume-claims
+- rbac
+- services
+skills_overrides:
+  Linux_Reseau: 70
+  Docker: 70
+  Kubernetes: 75
+  CI_CD: 50
+  Terraform: 30
+  Observabilite_Securite: 65
+  Ansible: 40

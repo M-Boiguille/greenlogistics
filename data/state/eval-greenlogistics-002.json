@@ -1,0 +1,31 @@
+{
+  "date": "2025-04-08",
+  "mission": "Déploiement de la supervision et de l'observabilité du cluster k3s",
+  "score": 65,
+  "concepts_valides": [
+    "deployments",
+    "services",
+    "configmaps",
+    "persistent-volume-claims",
+    "ingress",
+    "namespaces",
+    "daemonsets",
+    "rbac"
+  ],
+  "concepts_a_revoir": [
+    "prometheus-architecture",
+    "alert-rules",
+    "alertmanager"
+  ],
+  "skills_updates": {
+    "Linux_Reseau": 70,
+    "Docker": 70,
+    "Kubernetes": 75,
+    "CI_CD": 50,
+    "Terraform": 30,
+    "Observabilite_Securite": 65,
+    "Ansible": 40
+  },
+  "key_lesson": "L'observabilité ne se limite pas à déployer des composants ; il faut s'assurer que la configuration des alertes et des routes fonctionne de bout en bout (Prometheus -> Alertmanager -> notification).",
+  "recommendation": "Revoir la configuration d'Alertmanager (receiver, routes) et vérifier que les alertes sont bien déclenchées. Compléter le runbook avec les procédures de test des alertes et versionner l'ensemble dans Git."
+}
