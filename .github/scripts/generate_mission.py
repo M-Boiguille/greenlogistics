@@ -59,12 +59,25 @@ def _max_issue_number():
     return max(numbers, default=0)
 
 
+def _mission_numbers(items):
+    """Extrait les numéros de mission d'une liste d'IDs."""
+    numbers = []
+    pattern = re.compile(r"greenlogistics-(\d{3})")
+    for item in items:
+        match = pattern.search(str(item))
+        if match:
+            numbers.append(int(match.group(1)))
+    return numbers
+
+
 def find_next_mission_id(progress, career):
-    """Détermine le prochain identifiant de mission."""
-    completed = career.get("missions_completed", []) + progress.completed_missions
+    """Détermine le prochain identifiant de mission sans saut."""
+    completed_numbers = _mission_numbers(
+        career.get("missions_completed", []) + progress.completed_missions
+    )
     local_max = _max_mission_number()
     issue_max = _max_issue_number()
-    next_num = max(len(completed), local_max, issue_max) + 1
+    next_num = max(completed_numbers + [local_max, issue_max], default=0) + 1
     return f"greenlogistics-{next_num:03d}"
 
 

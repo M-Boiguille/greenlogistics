@@ -10,6 +10,15 @@ kubectl apply -f manifests-observabilite/prometheus-config.yaml
 kubectl apply -f manifests-observabilite/prometheus-alerts.yaml
 kubectl apply -f manifests-observabilite/grafana-secret.yaml
 
+# Le secret Grafana est vide dans Git pour éviter toute fuite de credentials.
+# Cette commande l'injecte au déploiement. En production, utiliser Sealed Secrets,
+# SOPS, Vault ou External Secrets Operator.
+GRAFANA_PASSWORD="${GRAFANA_PASSWORD:-DemoPass123!}"
+kubectl create secret generic grafana-admin \
+  -n monitoring \
+  --from-literal=password="$GRAFANA_PASSWORD" \
+  --dry-run=client -o yaml | kubectl apply -f -
+
 echo "Création du ClusterIssuer..."
 kubectl apply -f manifests-observabilite/cluster-issuer.yaml
 

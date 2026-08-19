@@ -6,7 +6,6 @@ async function loadMetrics() {
         document.getElementById('level').textContent = data.level;
         document.getElementById('target').textContent = data.target_level;
         document.getElementById('missions').textContent = data.missions_completed;
-        document.getElementById('xp').textContent = data.xp;
         document.getElementById('known').textContent = data.known_concepts_count;
         document.getElementById('upcoming').textContent = data.upcoming_concepts_count;
         document.getElementById('courses').textContent = data.active_courses.join(', ');

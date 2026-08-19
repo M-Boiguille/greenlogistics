@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .state import load_career, load_progress
+from .state import load_progress
 
 METRICS_FILE = Path("web/metrics.json")
 
@@ -23,7 +23,6 @@ SKILL_LABELS = {
 def generate_metrics() -> dict[str, Any]:
     """Génère le fichier metrics.json pour le dashboard."""
     progress = load_progress()
-    career = load_career()
 
     skills = {SKILL_LABELS.get(k, k): v for k, v in progress.skills.items()}
 
@@ -31,8 +30,7 @@ def generate_metrics() -> dict[str, Any]:
         "player": progress.player.name,
         "level": progress.player.current_level,
         "target_level": getattr(progress.player, "target_level", ""),
-        "xp": career.get("xp", 0),
-        "missions_completed": len(career.get("missions_completed", [])),
+        "missions_completed": len(progress.completed_missions),
         "skills": skills,
         "known_concepts_count": len(progress.known_concepts),
         "upcoming_concepts_count": len(progress.upcoming_concepts),

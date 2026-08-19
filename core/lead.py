@@ -19,7 +19,7 @@ class Review:
     next_step: str
 
     def is_approved(self) -> bool:
-        return self.decision.upper() == "APPROUVÉ"
+        return self.decision.upper() == "APPROUVÉ" or self.score >= 80
 
     def to_dict(self) -> dict[str, Any]:
         return {

@@ -4,11 +4,15 @@ import hashlib
 import json
 import os
 from dataclasses import dataclass
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Protocol
 
 import requests
 
 from .cache import Cache
+
+USAGE_FILE = Path("data/llm-usage.json")
 
 
 class LLMClient(Protocol):
@@ -48,6 +52,35 @@ class DeepseekClient:
         )
         return hashlib.sha256(payload.encode()).hexdigest()
 
+    def _log_usage(self, usage: dict[str, Any]) -> None:
+        """Journalise la consommation de tokens Deepseek."""
+        USAGE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        data: dict[str, Any] = {
+            "total_calls": 0,
+            "total_input_tokens": 0,
+            "total_output_tokens": 0,
+            "total_tokens": 0,
+            "calls": [],
+        }
+        if USAGE_FILE.exists():
+            with USAGE_FILE.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+        data["total_calls"] += 1
+        data["total_input_tokens"] += usage.get("prompt_tokens", 0)
+        data["total_output_tokens"] += usage.get("completion_tokens", 0)
+        data["total_tokens"] += usage.get("total_tokens", 0)
+        data["calls"].append(
+            {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "model": self.model,
+                "prompt_tokens": usage.get("prompt_tokens", 0),
+                "completion_tokens": usage.get("completion_tokens", 0),
+                "total_tokens": usage.get("total_tokens", 0),
+            }
+        )
+        with USAGE_FILE.open("w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+
     def chat(
         self,
         messages: list[dict[str, str]],
@@ -81,6 +114,9 @@ class DeepseekClient:
         response.raise_for_status()
         data: dict[str, Any] = response.json()
         content = str(data["choices"][0]["message"]["content"])
+
+        if "usage" in data:
+            self._log_usage(data["usage"])
 
         if self.cache:
             self.cache.set(key, content)
